@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "react-native-formAuthentication",
+    "slug": "react-native-formAuthentication",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
