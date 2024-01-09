@@ -1,24 +1,25 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView } from 'react-native'
+import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, TextInput } from 'react-native'
 import Logo from "../../../assets/images/peta.png"
 import React, { useState } from 'react'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 import SocialSignInButtons from '../../components/SocilasignInButtons/SocialSignInButtons'
 import { useNavigation } from '@react-navigation/native'
-
+import { useForm, Controller } from "react-hook-form"
 
 
 const SingInScreen = () => {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+
     const { height } = useWindowDimensions()
     const navigation = useNavigation()
+    const { control, handleSubmit,
+        formState: { errors }
+    } = useForm()
 
-
-    const onSignInPress = () => {
+    const onSignInPress = (data) => {
         // console.warn("Sign In")
         //Validate user
-
+        console.log(data)
         navigation.navigate("Home")
     }
     const onforgotPasswordPressed = () => {
@@ -49,18 +50,30 @@ const SingInScreen = () => {
                 />
 
                 <CustomInput
+                    name={"username"}
                     placeholder={"username"}
-                    value={username}
-                    setValue={setUsername}
+                    control={control}
+                    rules={{
+                        required: "username is required!",
+                    }}
                 />
                 <CustomInput
-                    value={password}
-                    setValue={setPassword}
                     placeholder={"Password"}
                     secureTextEntry={true}
+                    name={"password"}
+                    control={control}
+                    rules={{
+                        required: "password is required!",
+                    }}
                 />
+
+
+
+
+
+
                 <CustomButton
-                    onPress={onSignInPress}
+                    onPress={handleSubmit(onSignInPress)}
                     text={"Sign In"}
                 />
                 <CustomButton
